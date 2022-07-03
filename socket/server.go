@@ -74,6 +74,7 @@ func (s *DefaultServer) Listen() error {
 		return err
 	}
 	s.log.Infof("socket server listening on %s\n", s.addr)
+	s.log.Infof("test")
 	s.listener = listener
 
 	go func() {
