@@ -207,7 +207,10 @@ func (s *Session) Transfer(srv *server.Server) (err error) {
 		s.serverMu.Unlock()
 
 		pos := s.conn.GameData().PlayerPosition
-		
+		_ = s.conn.WritePacket(&packet.ChangeDimension{
+			Dimension: packet.DimensionNether,
+			Position:  pos,
+		})
 		_ = s.conn.WritePacket(&packet.StopSound{StopAll: true})
 
 		chunkX := int32(pos.X()) >> 4
