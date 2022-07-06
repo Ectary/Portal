@@ -18,9 +18,13 @@ func (*TransferRequestHandler) Handle(p packet.Packet, srv Server, c *Client) er
 		})
 	}
 
-	targetSrv, ok := srv.ServerRegistry().Server(pk.Server)
-	if !ok {
-		return response(packet.TransferResponseServerNotFound, "")
+	if pk.IsGamemode {
+		//TODO: get the server using the balancer
+	} else {
+		targetSrv, ok := srv.ServerRegistry().Server(pk.Server)
+		if !ok {
+			return response(packet.TransferResponseServerNotFound, "")
+		}
 	}
 
 	s, ok := srv.SessionStore().Load(pk.PlayerUUID)
